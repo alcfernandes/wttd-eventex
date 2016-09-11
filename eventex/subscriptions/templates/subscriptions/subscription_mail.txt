@@ -1,0 +1,16 @@
+Olá! Tudo bem?
+
+Muito obrigada patati patata
+
+teste teste teste teste
+
+Nome: {{ name }}
+CPF: {{ cpf }}
+Email: {{ email }}
+Telefone: {{ phone }}
+
+mais texto de mensagem aqui que não interessa
+
+Atenciosamente
+
+Morena
