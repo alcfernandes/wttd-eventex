@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.core import mail
 from django.http import HttpResponseRedirect
@@ -9,24 +10,35 @@ from eventex.subscriptions.forms import SubscriptionForm
 
 def subscribe(request):
     if request.method == 'POST':
-        form = SubscriptionForm(request.POST)
+        return create(request)
+    else:  # É GET
+        return new(request)
 
-        if form.is_valid():
-            body = render_to_string('subscriptions/subscription_mail.txt', form.cleaned_data)
 
-            mail.send_mail('Confirmação de inscricao',
-                      body,
-                      'contato@eventex.com.br',
-                      ['contato@eventex.com.br', form.cleaned_data['email']])
+def create(request):
+    form = SubscriptionForm(request.POST)
 
-            messages.success(request, 'Inscrição realizada com sucesso!')
+    if not form.is_valid():
+        return render(request, 'subscriptions/subscription_form.html', {'form': form})
 
-            return HttpResponseRedirect('/inscricao/')
+    _send_mail(context=form.cleaned_data,
+               from_=settings.DEFAULT_FROM_EMAIL,
+               subject='Confirmação de inscricao',
+               template_name='subscriptions/subscription_mail.txt',
+               to=form.cleaned_data['email'])
 
-        else:
-            return render(request, 'subscriptions/subscription_form.html', {'form': form})
+    messages.success(request, 'Inscrição realizada com sucesso!')
 
-    else:
-        context = {'form': SubscriptionForm()}
-        return render(request, 'subscriptions/subscription_form.html', context)
+    return HttpResponseRedirect('/inscricao/')
 
+
+def new(request):
+    return render(request, 'subscriptions/subscription_form.html', {'form': SubscriptionForm()})
+
+
+def _send_mail(context, from_, subject, template_name, to):
+    body = render_to_string(template_name, context)
+    mail.send_mail(subject,
+                   body,
+                   from_,
+                   [from_, to])
