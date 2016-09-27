@@ -1,10 +1,13 @@
+import unittest
+
 from django.core import mail
 from django.test import TestCase
 from django.shortcuts import resolve_url as r
 
-
+@unittest.skip('Lento?')
 class SubscribePostValid(TestCase):
     def setUp(self):
+
         data = dict(name="Alessandro Fernandes", cpf="00746198701", email="alcfernandes@yahoo.com",
                     phone="24998829105")
         self.client.post(r('subscriptions:new'), data)

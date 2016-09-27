@@ -31,11 +31,11 @@ def create(request):
 
     subscription = Subscription.objects.create(**form.cleaned_data)
 
-    _send_mail(context={'subscription': subscription},
-               from_=settings.DEFAULT_FROM_EMAIL,
-               subject='Confirmação de inscricao',
-               template_name='subscriptions/subscription_mail.txt',
-               to=subscription.email)
+    #_send_mail(context={'subscription': subscription},
+    #           from_=settings.DEFAULT_FROM_EMAIL,
+    #           subject='Confirmação de inscricao',
+    #           template_name='subscriptions/subscription_mail.txt',
+    #           to=subscription.email)
 
 
     # Versao antes de implementar o /inscricao/1/

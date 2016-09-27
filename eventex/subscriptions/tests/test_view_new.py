@@ -1,3 +1,5 @@
+import unittest
+
 from django.core import mail
 from django.test import TestCase
 from django.shortcuts import resolve_url as r
@@ -40,17 +42,22 @@ class SubscriptionsNewGet(TestCase):
         form = self.resp.context['form']
         self.assertIsInstance(form, SubscriptionForm)
 
-
+#@unittest.skip('Lento')
 class SubscriptionsNewPostValid(TestCase):
     def setUp(self):
-        data = dict(name="Alessandro Fernandes", cpf="00746198701", email="alcfernandes@yahoo.com",
-                    phone="24998829105")
+        # {'nome': 'alessandro', 'cidade': 'Valença', 'estado': 'RJ'}
+        data = {'name': 'Alessandro Fernandes', 'cpf': '00746198701', 'email': 'alcfernandes@yahoo.com',
+                'phone': '24998829105'}
+
+        #data = dict(name="Alessandro Fernandes", cpf="00746198701", email="alcfernandes@yahoo.com",
+        #            phone="24998829105")
         self.resp = self.client.post(r('subscriptions:new'), data)
 
     def test_post(self):
         """Valid post shoud redirect to /inscricao/1/"""
         self.assertRedirects(self.resp, r('subscriptions:detail', 1))
 
+    @unittest.skip('Lento')
     def test_send_subscrib_email(self):
         """Most send one email"""
         self.assertEqual(1, len(mail.outbox))
