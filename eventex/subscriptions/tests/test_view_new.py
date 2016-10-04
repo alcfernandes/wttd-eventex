@@ -42,7 +42,7 @@ class SubscriptionsNewGet(TestCase):
         form = self.resp.context['form']
         self.assertIsInstance(form, SubscriptionForm)
 
-#@unittest.skip('Lento')
+
 class SubscriptionsNewPostValid(TestCase):
     def setUp(self):
         # {'nome': 'alessandro', 'cidade': 'Valença', 'estado': 'RJ'}
@@ -57,7 +57,6 @@ class SubscriptionsNewPostValid(TestCase):
         """Valid post shoud redirect to /inscricao/1/"""
         self.assertRedirects(self.resp, r('subscriptions:detail', 1))
 
-    @unittest.skip('Lento')
     def test_send_subscrib_email(self):
         """Most send one email"""
         self.assertEqual(1, len(mail.outbox))
@@ -99,7 +98,7 @@ class TemplateRegressionTest(TestCase):
 
 
 
-# @unittest.skip('To be removed.')
+
 # Versao antes de implementar o /inscricao/1/
 #class SubscribeSuccessMessage(TestCase):
 #    def test_message(self):

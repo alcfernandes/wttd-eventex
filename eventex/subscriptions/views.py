@@ -29,13 +29,14 @@ def create(request):
     if not form.is_valid():
         return render(request, 'subscriptions/subscription_form.html', {'form': form})
 
-    subscription = Subscription.objects.create(**form.cleaned_data)
+    # subscription = Subscription.objects.create(**form.cleaned_data)
+    subscription = form.save()
 
-    #_send_mail(context={'subscription': subscription},
-    #           from_=settings.DEFAULT_FROM_EMAIL,
-    #           subject='Confirmação de inscricao',
-    #           template_name='subscriptions/subscription_mail.txt',
-    #           to=subscription.email)
+    _send_mail(context={'subscription': subscription},
+               from_=settings.DEFAULT_FROM_EMAIL,
+               subject='Confirmação de inscricao',
+               template_name='subscriptions/subscription_mail.txt',
+               to=subscription.email)
 
 
     # Versao antes de implementar o /inscricao/1/
