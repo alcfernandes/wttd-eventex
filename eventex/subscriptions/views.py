@@ -38,13 +38,10 @@ def create(request):
                template_name='subscriptions/subscription_mail.txt',
                to=subscription.email)
 
-
     # Versao antes de implementar o /inscricao/1/
     # messages.success(request, 'Inscrição realizada com sucesso!')
 
     return HttpResponseRedirect(r('subscriptions:detail', subscription.pk))
-
-
 
 
 def detail(request, pk):
