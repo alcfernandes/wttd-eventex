@@ -1,6 +1,6 @@
 # Eventex
 
-Sistema de Eventos encomendado pela Morena.
+Sistema de Eventos sem uso prático apenas para exemplificar o uso do Django.
 
 [![Build Status](https://travis-ci.org/alcfernandes/wttd-eventex.svg?branch=master)](https://travis-ci.org/alcfernandes/wttd-eventex)
 [![Code Health](https://landscape.io/github/alcfernandes/wttd-eventex/master/landscape.svg?style=flat)](https://landscape.io/github/alcfernandes/wttd-eventex/master)
